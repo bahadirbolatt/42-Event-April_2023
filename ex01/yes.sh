@@ -1,3 +1,3 @@
 while true; do
-    awk 'BEGIN { print "yes" }'
+    yes "yes"
 done
