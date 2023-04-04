@@ -1,34 +1,24 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
-int main(int ac, char *av[])
+int calc(char c, int res)
 {
-    if(ac != 2)
-        return 0;
-    int i, points = 0, ace_count = 0;
-
-    for (i = 1; i < strlen(av[1]); i++)
-    {
-        if (av[1][i] == 'J' || (av[1][i] == 'Q' || av[1][i] == 'D') || av[1][i] == 'K')
-            points += 10;
-        else if (av[1][i] == 'A')
-        {
-            ace_count++;
-            points += 11;
-        } else
-            points += atoi(&av[1][i]);
+    if (c == 'A') {
+        if (res >= 11)
+            return (1);
+        return (11);
     }
-
-    while (points > 21 && ace_count > 0) {
-        points -= 10;
-        ace_count--;
-    }
-
-    if (points == 21 && ac == 3)
-        printf("Blackjack!\n");
+    if (strchr("TJDKQ", c) != NULL)
+        return (10);
     else
-        printf("%d\n", points);
+        return (c - 48);
+}
 
-    return 0;
+int main(int ac, char **av)
+{
+    int res = 0;
+
+    for (int i = 0; av[1][i]; i++)
+        res += calc(av[1][i], res);
+    res == 21 ? printf("Blackjack!\n") : printf("%d\n", res);
 }
