@@ -1,19 +1,23 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-int main(int ac, char *av[]) {
+int main(int ac, char *av[])
+{
+    if(ac != 2)
+        return 0;
     int i, points = 0, ace_count = 0;
 
-    for (i = 1; i < ac; i++)
+    for (i = 1; i < strlen(av[1]); i++)
     {
-        if (av[i][0] == 'J' || (av[i][0] == 'Q' || av[i][0] == 'D')|| av[i][0] == 'K')
+        if (av[1][i] == 'J' || (av[1][i] == 'Q' || av[1][i] == 'D') || av[1][i] == 'K')
             points += 10;
-        else if (av[i][0] == 'A')
+        else if (av[1][i] == 'A')
         {
             ace_count++;
             points += 11;
         } else
-            points += atoi(&av[i][0]);
+            points += atoi(&av[1][i]);
     }
 
     while (points > 21 && ace_count > 0) {
